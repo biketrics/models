@@ -2,8 +2,9 @@ import math
 
 # Inputs
 wheelDiameter_in = 27.5 # user must provide this value
+clock_period_ms = 10
 lastTime_ms = 100
-currentTime_ms = 1000
+currentTime_ms = 200
 
 # Distance Constants
 FEET_PER_MILE = 5280
@@ -28,4 +29,7 @@ print(f"Rotation Time (ms): {rotationTime_ms}")
 
 # Calculate speed in miles per hour
 speed_mph = distPerRotation_mi / (rotationTime_ms / MS_PER_HOUR)
-print(f"Speed (mph): {speed_mph}")
+
+# Quantify the error introduced into speed calculation based on the clock rate
+speed_error = (distPerRotation_mi / ((rotationTime_ms - clock_period_ms) / MS_PER_HOUR)) - speed_mph
+print(f"Speed (mph): {speed_mph - speed_error/2} +-{speed_error/2}")
